@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Цветной график платежей за СТРП</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 50px;
+            background: linear-gradient(to right, #a1c4fd, #c2e9fb);
+            color: #333;
+        }
+        table {
+            margin: 0 auto;
+            border-collapse: collapse;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+        th, td {
+            border: 1px solid #ccc;
+            padding: 10px;
+            background-color: #fff;
+        }
+        .highlight {
+            font-weight: bold;
+            color: red;
+        }
+        input {
+            width: 80px;
+            text-align: center;
+            padding: 5px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+        #message {
+            margin-top: 20px;
+            font-weight: bold;
+            color: green;
+        }
+    </style>
+</head>
+<body>
+
+<h2>График платежей за СТРП</h2>
+
+<table>
+    <tr>
+        <th>Месяц</th>
+        <td>Май</td>
+        <td>Июнь</td>
+        <td>Июль</td>
+        <td>Август</td>
+        <td>Сентябрь</td>
+        <td>Октябрь</td>
+        <td>Ноябрь</td>
+        <td>Декабрь</td>
+        <td>Январь</td>
+        <td>Февраль</td>
+    </tr>
+    <tr>
+        <th>Сумма перевода</th>
+        <td><input type="number" value="0" onchange="updateDebt()"></td>
+        <td><input type="number" value="0" onchange="updateDebt()"></td>
+        <td><input type="number" value="0" onchange="updateDebt()"></td>
+        <td><input type="number" value="0" onchange="updateDebt()"></td>
+        <td><input type="number" value="0" onchange="updateDebt()"></td>
+        <td><input type="number" value="0" onchange="updateDebt()"></td>
+        <td><input type="number" value="0" onchange="updateDebt()"></td>
+        <td><input type="number" value="0" onchange="updateDebt()"></td>
+        <td><input type="number" value="0" onchange="updateDebt()"></td>
+        <td><input type="number" value="0" onchange="updateDebt()"></td>
+    </tr>
+</table>
+
+<p class="highlight">Общая сумма долга: <span id="totalDebt">105000</span></p>
+
+<div id="message"></div>
+
+<script>
+    const totalDebtInitial = 105000;
+    const compliments = [
+        "Вы супер!",
+        "Замечательно!",
+        "Отличный вклад!",
+        "Превосходно!",
+        "Так держать!",
+        "Продолжайте в том же духе!",
+        "У вас всё получится!"
+    ];
+
+    function updateDebt() {
+        let payments = document.querySelectorAll('input');
+        let totalPaid = 0;
+        payments.forEach(input => totalPaid += parseInt(input.value) || 0);
+
+        let remainingDebt = totalDebtInitial - totalPaid;
+        document.getElementById('totalDebt').textContent = remainingDebt;
+
+        const messageEl = document.getElementById('message');
+        messageEl.textContent = compliments[Math.floor(Math.random() * compliments.length)];
+
+        setTimeout(() => { messageEl.textContent = ''; }, 5000);
+    }
+</script>
+
+</body>
+</html>
